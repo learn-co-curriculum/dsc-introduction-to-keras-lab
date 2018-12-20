@@ -623,10 +623,12 @@ history_dict.keys()
 
 ## Plot the results
 
-As you might expect, we'll use our ```import matplotlib.pyplot as plt``` for graphing. As we have yet to discuss this process previously, the code here is provided for you. Take some time to reflect again upon what **epochs** are and how this code block works.
+As you might expect, we'll use our import matplotlib.pyplot as plt for graphing. Use the data stored in the history_dict above to plot the loss vs epochs and the accurcay vs epochs.
 
 
 ```python
+#Your code here; plot the loss vs the number of epoch
+
 history_dict = history.history
 loss_values = history_dict['loss']
 
@@ -648,6 +650,8 @@ From the alternative perspective, we can also plot the successive accuracy of ou
 
 
 ```python
+#Your code here; plot the training accuracy vs the number of epochs
+
 acc_values = history_dict['acc'] 
 
 plt.plot(epochs, acc_values, 'r', label='Training acc')
