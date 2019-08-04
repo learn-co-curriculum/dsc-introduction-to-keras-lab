@@ -899,6 +899,12 @@ Finally, it's time to output. Use the method discussed in the previous lesson to
 y_hat_test = #Your code here; Output (probability) predictions for the test set.
 ```
 
+
+```python
+# __SOLUTION__ 
+y_hat_test = model.predict(test) #Your code here; Output (probability) predictions for the test set.
+```
+
 ## Evaluate Performance
 
 Finally, print the loss and accuracy for both the train and test sets of the final trained model.
@@ -906,17 +912,6 @@ Finally, print the loss and accuracy for both the train and test sets of the fin
 
 ```python
 #Your code here; print the loss and accuracy for the training set.
-```
-
-
-```python
-# __SOLUTION__ 
-y_hat_test = model.predict(test) #Your code here; Output (probability) predictions for the test set.
-```
-
-
-```python
-#Your code here; print the loss and accuracy for the test set.
 ```
 
 
@@ -936,6 +931,11 @@ results_train
     [0.32606651544519977, 0.8818290598290598]
 
 
+
+
+```python
+#Your code here; print the loss and accuracy for the test set.
+```
 
 
 ```python
