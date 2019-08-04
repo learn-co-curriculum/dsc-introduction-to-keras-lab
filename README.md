@@ -665,14 +665,14 @@ plt.show()
 
 Finally, it's time to output. Use the method discussed in the previous lesson to output (probability) predictions for the test set.
 
-## Evaluate Performance
-
-Finally, print the loss and accuracy for both the train and test sets of the final trained model.
-
 
 ```python
 y_hat_test = model.predict(test) #Your code here; Output (probability) predictions for the test set.
 ```
+
+## Evaluate Performance
+
+Finally, print the loss and accuracy for both the train and test sets of the final trained model.
 
 
 ```python
