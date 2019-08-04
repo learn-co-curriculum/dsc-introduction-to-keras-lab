@@ -30,10 +30,8 @@ from keras import layers
 from keras import optimizers
 ```
 
-    /Users/matthew.mitchell/anaconda3/lib/python3.6/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
-      from ._conv import register_converters as _register_converters
     Using TensorFlow backend.
-    
+
 
 ## Loading the data
 
@@ -102,7 +100,7 @@ print('Dimensions of our coded results:', np.shape(one_hot_results)) #Our coded 
     one_hot_results type: <class 'numpy.ndarray'>
     Found 50110 unique tokens.
     Dimensions of our coded results: (60000, 2000)
-    
+
 
 ## Decoding our Word Vectors
 As a note, you can also decode these vectorized representations of the reviews. The `word_index` variable, defined above, stores the mapping from the label number to the actual word. Somewhat tediously, we can turn this dictionary inside out and map it back to our word vectors, giving us roughly the original complaint back. (As you'll see, the text won't be identical as we limited ourselves to 200 words.)
@@ -149,7 +147,7 @@ print(decoded_review)
     
     Decoded review from Tokenizer:
     i have already filed several complaints about aes i was notified by a xxxx xxxx let xxxx who to be from your office he said he was from cfpb i found out this morning he is n't from your office but is actually works at xxxx this has weeks of my time they aes confirmed and admitted see attached of xxxx conversation at xxxx xxxx with xxxx that they verified the loans are not mine the student loans they had xxxx and on and reported credit reporting in my name are in fact not mine they their investigation on xxxx they made a mistake and have my name on loans i these xxxx loans total 10000 00 original amount my xxxx loans i got was total 00 we by providing aes this with my original notes i located recently the xxxx of my college provided aes with their original amounts of my xxxx loans which show different dates and amounts the dates and amounts are not even close to these loans they have in my name the original lender xxxx xxxx bank notifying aes they never issued me a student loan and original loan xxxx notifying aes they never were of my loans xxxx forward but today this person xxxx xxxx told me they know these loans are not mine and they refuse to remove my name off these xxxx loan 's and correct their mistake essentially me to pay these loans off in xxxx they sold the loans to xxxx loans this is first to be this office and then refusing to correct their mistake please for the of xxxx will from your office call me at xxxx today i am a xxxx and they are against me to be you
-    
+
 
 ## Convert the Products to Numerical Categories
 
@@ -201,7 +199,7 @@ print(np.shape(product_onehot))
     
     One hot labels shape:
     (60000, 7)
-    
+
 
 ## Train - test split
 
@@ -230,7 +228,7 @@ print("Train shape:", np.shape(train))
     Train label shape: (58500, 7)
     Test shape: (1500, 2000)
     Train shape: (58500, 2000)
-    
+
 
 ## Building the network
 
@@ -321,7 +319,7 @@ Finally, print the loss and accuracy for both the train and test sets of the fin
 #Your code here; print the loss and accuracy for the test set.
 ```
 
-We can see that the training set results are really good (89.4% classification accuracy!), but the test set results lag behind. In the next lab. We'll talk a little more about this in the next lecture, and will discuss how we can get better test set results as well!
+We can see that the training set results are really good, but the test set results lag behind. In the next lab. We'll talk a little more about this in the next lecture, and will discuss how we can get better test set results as well!
 
 ## Additional Resources
 
