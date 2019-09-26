@@ -350,6 +350,8 @@ model.compile(optimizer='SGD',
 
 In the compiler, you'll be passing the optimizer (SGD = stochastic gradient descent), loss function, and metrics. Train the model for 120 epochs in mini-batches of 256 samples.
 
+_Note: You can expect your code to run in a bit over a minute, on a 2.7 GHz speed CPU._
+
 
 ```python
 #Your code here
