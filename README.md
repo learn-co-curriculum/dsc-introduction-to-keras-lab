@@ -76,6 +76,7 @@ Tokenizer?
 
 ```python
 #Now onto the actual code recipe...
+#⏰ This cell may take about a thirty seconds to run
 complaints = df["Consumer complaint narrative"] #Our raw text complaints
 
 tokenizer = Tokenizer(num_words=2000) #Initialize a tokenizer.
@@ -260,7 +261,7 @@ Now, compile the model! This time, use `'categorical_crossentropy'` as the loss 
 
 In the compiler, you'll be passing the optimizer (SGD = stochastic gradient descent), loss function, and metrics. Train the model for 120 epochs in mini-batches of 256 samples.
 
-_Note: You can expect your code to run in a bit over a minute, on a 2.7 GHz speed CPU._
+_Note:_ ⏰ _Your code may take about one to two minutes to run._
 
 
 ```python
