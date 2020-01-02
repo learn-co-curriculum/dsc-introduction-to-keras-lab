@@ -3,17 +3,19 @@
 
 ## Introduction
 
-In this lab you'll once again build a neural network but this time with much less production time since we will be using Keras to do a lot of the heavy lifting building blocks which we coded from hand previously.  Our use case will be classifying Bank complaints.
+In this lab you'll once again build a neural network, but this time you will be using Keras to do a lot of the heavy lifting.
 
 
 ## Objectives
 
 You will be able to:
-* Build a neural network using Keras
 
-## Loading Required Packages
+- Build a neural network using Keras 
+- Evaluate performance of a neural network using Keras 
 
-Here we'll import all of the various packages that we'll use in this code along. We'll point out where these imports were used as they come up in the lab.
+## Required Packages
+
+We'll start by importing all of the required packages and classes.
 
 
 ```python
@@ -30,18 +32,16 @@ from keras import layers
 from keras import optimizers
 ```
 
-## Loading the data
+## Load the data
 
-As usual, we will start our data science process by importing the data itself.  
-Load and preview as a pandas dataframe.   
-The data is stored in a file **Bank_complaints.csv**.
+In this lab you will be classifying bank complaints available in the `'Bank_complaints.csv'` file. 
 
 
 ```python
-#Your code here
-#import pandas as pd #As reference; already imported above
-
+# Import data
 df = pd.read_csv('Bank_complaints.csv')
+
+# Inspect data
 print(df.info())
 df.head()
 ```
@@ -113,14 +113,11 @@ df.head()
 
 
 
-## Further Preview of the Categories
-
-As we said, our task here is to categorize banking complaints into various predefined categories. Preview what these categories are and what percent of the complaints each accounts for.
+As mentioned earlier, your task is to categorize banking complaints into various predefined categories. Preview what these categories are and what percent of the complaints each accounts for. 
 
 
 ```python
-#Your code here
-df["Product"].value_counts(normalize=True)
+df['Product'].value_counts(normalize=True)
 ```
 
 
@@ -139,45 +136,51 @@ df["Product"].value_counts(normalize=True)
 
 ## Preprocessing
 
-Before we build our neural network, we need to do several preprocessing steps. First, we will create word vector counts (a bag of words type representation) of our complaints text. Next, we will change the category labels to integers. Finally, we will perform our usual train-test split before building and training our neural network using Keras. With that, let's start munging our data!
+Before we build our neural network, we need to do several preprocessing steps. First, we will create word vector counts (a bag of words type representation) of our complaints text. Next, we will change the category labels to integers. Finally, we will perform our usual train-test split before building and training our neural network using Keras. With that, let's start munging our data! 
 
 ## One-hot encoding of the complaints
 
-Our first step again is to transform our textual data into a numerical representation. As we've started to see in some of our previous lessons on NLP, there are many ways to do this. Here, we'll use the `Tokenizer` method from the `preprocessing` module of the Keras package.   
+Our first step again is to transform our textual data into a numerical representation. As we saw in some of our previous lessons on NLP, there are many ways to do this. Here, we'll use the `Tokenizer()` class from the `preprocessing.text` sub-module of the Keras package.   
 
-As with our previous work using NLTK, this will transform our text complaints into word vectors. (Note that the method of creating a vector is different from our previous work with NLTK; as you'll see, word order will be preserved as opposed to a bag of words representation. In the below code, we'll only keep the 2,000 most common words and use one-hot encoding.
+As with our previous work using NLTK, this will transform our text complaints into word vectors. (Note that the method of creating a vector is different from our previous work with NLTK; as you'll see, word order will be preserved as opposed to a bag of words representation). In the below code, we'll only keep the 2,000 most common words and use one-hot encoding. 
 
-Note that the code block below takes advantage of the following package import from our first code cell above.  
-`from keras.preprocessing.text import Tokenizer`
+
 
 
 ```python
-#As a quick preliminary, briefly review the docstring for the Keras.preprocessing.text.Tokenizer method:
+# As a quick preliminary, briefly review the docstring for keras.preprocessing.text.Tokenizer
 Tokenizer?
 ```
 
 
 ```python
-#Now onto the actual code recipe...
-#⏰ This cell may take about a thirty seconds to run
-complaints = df["Consumer complaint narrative"] #Our raw text complaints
+# ⏰ This cell may take about thirty seconds to run
 
-tokenizer = Tokenizer(num_words=2000) #Initialize a tokenizer.
+# Raw text complaints
+complaints = df['Consumer complaint narrative'] 
 
-tokenizer.fit_on_texts(complaints) #Fit it to the complaints
+# Initialize a tokenizer 
+tokenizer = Tokenizer(num_words=2000) 
 
-sequences = tokenizer.texts_to_sequences(complaints) #Generate sequences
+# Fit it to the complaints
+tokenizer.fit_on_texts(complaints) 
+
+# Generate sequences
+sequences = tokenizer.texts_to_sequences(complaints) 
 print('sequences type:', type(sequences))
 
-one_hot_results= tokenizer.texts_to_matrix(complaints, mode='binary') #Similar to sequences, but returns a numpy array
+# Similar to sequences, but returns a numpy array
+one_hot_results= tokenizer.texts_to_matrix(complaints, mode='binary') 
 print('one_hot_results type:', type(one_hot_results))
 
-word_index = tokenizer.word_index #Useful if we wish to decode (more explanation below)
+# Useful if we wish to decode (more explanation below)
+word_index = tokenizer.word_index 
 
-print('Found %s unique tokens.' % len(word_index)) #Tokens are the number of unique words across the corpus
+# Tokens are the number of unique words across the corpus
+print('Found %s unique tokens.' % len(word_index)) 
 
-
-print('Dimensions of our coded results:', np.shape(one_hot_results)) #Our coded data
+# Our coded data
+print('Dimensions of our coded results:', np.shape(one_hot_results)) 
 ```
 
     sequences type: <class 'list'>
@@ -186,16 +189,16 @@ print('Dimensions of our coded results:', np.shape(one_hot_results)) #Our coded 
     Dimensions of our coded results: (60000, 2000)
 
 
-## Decoding our Word Vectors
-As a note, you can also decode these vectorized representations of the reviews. The `word_index` variable, defined above, stores the mapping from the label number to the actual word. Somewhat tediously, we can turn this dictionary inside out and map it back to our word vectors, giving us roughly the original complaint back. (As you'll see, the text won't be identical as we limited ourselves to 200 words.)
+## Decoding Word Vectors 
+
+As a note, you can also decode these vectorized representations of the reviews. The `word_index` variable, defined above, stores the mapping from the label number to the actual word. Somewhat tediously, we can turn this dictionary inside out and map it back to our word vectors, giving us roughly the original complaint back. (As you'll see, the text won't be identical as we limited ourselves to top 2000 words.)
 
 ## Python Review / Mini Challenge
 
-While a bit tangential to our main topic of interest, we need to reverse our current dictionary `word_index` which maps words from our corpus to integers. In decoding our one_hot_results, we will need to create a dictionary of these integers to the original words. Below, take the `word_index` dictionary object and change the orientation so that the values are keys and the keys values. In other words, you are transforming something of the form {A:1, B:2, C:3} to {1:A, 2:B, 3:C}
+While a bit tangential to our main topic of interest, we need to reverse our current dictionary `word_index` which maps words from our corpus to integers. In decoding our `one_hot_results`, we will need to create a dictionary of these integers to the original words. Below, take the `word_index` dictionary object and change the orientation so that the values are keys and the keys values. In other words, you are transforming something of the form {A:1, B:2, C:3} to {1:A, 2:B, 3:C}. 
 
 
 ```python
-#Your code here
 reverse_index = dict([(value, key) for (key, value) in word_index.items()])
 ```
 
@@ -239,22 +242,25 @@ On to step two of our preprocessing: converting our descriptive categories into 
 
 
 ```python
-product = df["Product"]
+product = df['Product']
 
-le = preprocessing.LabelEncoder() #Initialize. le used as abbreviation fo label encoder
+# Initialize
+le = preprocessing.LabelEncoder() 
 le.fit(product)
-print("Original class labels:")
+print('Original class labels:')
 print(list(le.classes_))
 print('\n')
 product_cat = le.transform(product)  
-#list(le.inverse_transform([0, 1, 3, 3, 0, 6, 4])) #If you wish to retrieve the original descriptive labels post production
+
+# If you wish to retrieve the original descriptive labels post production
+# list(le.inverse_transform([0, 1, 3, 3, 0, 6, 4])) 
 
 print('New product labels:')
 print(product_cat)
 print('\n')
 
-
-print('One hot labels; 7 binary columns, one for each of the categories.') #Each row will be all zeros except for the category for that observation.
+# Each row will be all zeros except for the category for that observation 
+print('One hot labels; 7 binary columns, one for each of the categories.') 
 product_onehot = to_categorical(product_cat)
 print(product_onehot)
 print('\n')
@@ -285,27 +291,25 @@ print(np.shape(product_onehot))
     (60000, 7)
 
 
-## Train - test split
+## Train-test split
 
-Now for our final preprocessing step: the usual train-test split.
+Now for our final preprocessing step: the usual train-test split. 
 
 
 ```python
-import random
 random.seed(123)
 test_index = random.sample(range(1,10000), 1500)
 
 test = one_hot_results[test_index]
 train = np.delete(one_hot_results, test_index, 0)
 
-
 label_test = product_onehot[test_index]
 label_train = np.delete(product_onehot, test_index, 0)
 
-print("Test label shape:", np.shape(label_test))
-print("Train label shape:", np.shape(label_train))
-print("Test shape:", np.shape(test))
-print("Train shape:", np.shape(train))
+print('Test label shape:', np.shape(label_test))
+print('Train label shape:', np.shape(label_train))
+print('Test shape:', np.shape(test))
+print('Train shape:', np.shape(train))
 ```
 
     Test label shape: (1500, 7)
@@ -316,32 +320,30 @@ print("Train shape:", np.shape(train))
 
 ## Building the network
 
-Let's build a fully connected (Dense) layer network with relu activations in Keras. You can do this using: `Dense(16, activation='relu')`.
+Let's build a fully connected (Dense) layer network with relu activation in Keras. You can do this using: `Dense(16, activation='relu')`. 
 
-In this example, use 2 hidden with 50 units in the first layer and 25 in the second, both with a `relu` activation function. Because we are dealing with a multiclass problem (classifying the complaints into 7 ), we use a use a softmax classifier in order to output 7 class probabilities per case.  
-
-The previous imports that you'll use here are:  
-
-```from keras import models
-from keras import layers```
+In this example, use two hidden layers with 50 units in the first layer and 25 in the second, both with a `'relu'` activation function. Because we are dealing with a multiclass problem (classifying the complaints into 7 categories), we use a use a `'softmax'` classifier in order to output 7 class probabilities per case.  
 
 
 ```python
-#Your code here; initialize a sequential model with 3 layers; 
-#two hidden relu and the final classification output using softmax
+# Initialize a sequential model
 model = models.Sequential()
-model.add(layers.Dense(50, activation='relu', input_shape=(2000,))) #2 hidden layers
+
+# Two layers with relu activation
+model.add(layers.Dense(50, activation='relu', input_shape=(2000,)))
 model.add(layers.Dense(25, activation='relu'))
+
+# One layer with softmax activation 
 model.add(layers.Dense(7, activation='softmax'))
 ```
 
-## Compiling the model and look at the results
+## Compiling the model
 
 Now, compile the model! This time, use `'categorical_crossentropy'` as the loss function and stochastic gradient descent, `'SGD'` as the optimizer. As in the previous lesson, include the accuracy as a metric.
 
 
 ```python
-#Your code here
+# Compile the model
 model.compile(optimizer='SGD',
               loss='categorical_crossentropy',
               metrics=['accuracy'])
@@ -355,7 +357,7 @@ _Note:_ ⏰ _Your code may take about one to two minutes to run._
 
 
 ```python
-#Your code here
+# Train the model 
 history = model.fit(train,
                     label_train,
                     epochs=120,
@@ -621,12 +623,10 @@ history_dict.keys()
 
 ## Plot the results
 
-As you might expect, we'll use our ```import matplotlib.pyplot as plt``` for graphing. Use the data stored in the history_dict above to plot the loss vs epochs and the accuracy vs epochs.
+As you might expect, we'll use our `matplotlib` for graphing. Use the data stored in the `history_dict` above to plot the loss vs epochs and the accuracy vs epochs. 
 
 
 ```python
-#Your code here; plot the loss vs the number of epoch
-
 history_dict = history.history
 loss_values = history_dict['loss']
 
@@ -641,14 +641,14 @@ plt.show()
 ```
 
 
-![png](index_files/index_31_0.png)
+![png](index_files/index_27_0.png)
 
 
 It seems like we could just keep on going and accuracy would go up!
 
 
 ```python
-#Your code here; plot the training accuracy vs the number of epochs
+# Plot the training accuracy vs the number of epochs
 
 acc_values = history_dict['acc'] 
 
@@ -661,16 +661,17 @@ plt.show()
 ```
 
 
-![png](index_files/index_33_0.png)
+![png](index_files/index_29_0.png)
 
 
 ## Make predictions
 
-Finally, it's time to output. Use the method discussed in the previous lesson to output (probability) predictions for the test set.
+Finally, it's time to make predictions. Use the relevant method discussed in the previous lesson to output (probability) predictions for the test set.
 
 
 ```python
-y_hat_test = model.predict(test) #Your code here; Output (probability) predictions for the test set.
+# Output (probability) predictions for the test set 
+y_hat_test = model.predict(test) 
 ```
 
 ## Evaluate Performance
@@ -679,7 +680,7 @@ Finally, print the loss and accuracy for both the train and test sets of the fin
 
 
 ```python
-#Your code here; print the loss and accuracy for the training set.
+# Print the loss and accuracy for the training set 
 results_train = model.evaluate(train, label_train)
 results_train
 ```
@@ -696,7 +697,7 @@ results_train
 
 
 ```python
-#Your code here; print the loss and accuracy for the test set.
+# Print the loss and accuracy for the test set 
 results_test = model.evaluate(test, label_test)
 results_test
 ```
@@ -711,14 +712,14 @@ results_test
 
 
 
-We can see that the training set results are really good, but the test set results lag behind. In the next lab. We'll talk a little more about this in the next lecture, and will discuss how we can get better test set results as well!
+We can see that the training set results are really good, but the test set results lag behind. We'll talk a little more about this in the next lesson, and discuss how we can get better test set results as well!
 
-## Additional Resources
 
-https://github.com/susanli2016/Machine-Learning-with-Python/blob/master/Consumer_complaints.ipynb
+## Additional Resources 
 
-https://catalog.data.gov/dataset/consumer-complaint-database
+- https://github.com/susanli2016/Machine-Learning-with-Python/blob/master/Consumer_complaints.ipynb 
+- https://catalog.data.gov/dataset/consumer-complaint-database 
 
 ## Summary 
 
-Congratulations! In this lab, you built a neural network with much less production time thanks to the tools provided by Keras! In upcoming lessons and labs we'll continue to investigate further ideas regarding how to tune and refine these models for increased accuracy and performance.
+Congratulations! In this lab, you built a neural network thanks to the tools provided by Keras! In upcoming lessons and labs we'll continue to investigate further ideas regarding how to tune and refine these models for increased accuracy and performance.
