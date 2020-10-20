@@ -32,9 +32,6 @@ from keras import layers
 from keras import optimizers
 ```
 
-    Using TensorFlow backend.
-
-
 
 ```python
 # __SOLUTION__ 
@@ -79,8 +76,10 @@ df.head()
     <class 'pandas.core.frame.DataFrame'>
     RangeIndex: 60000 entries, 0 to 59999
     Data columns (total 2 columns):
-    Product                         60000 non-null object
-    Consumer complaint narrative    60000 non-null object
+     #   Column                        Non-Null Count  Dtype 
+    ---  ------                        --------------  ----- 
+     0   Product                       60000 non-null  object
+     1   Consumer complaint narrative  60000 non-null  object
     dtypes: object(2)
     memory usage: 937.6+ KB
     None
@@ -226,12 +225,6 @@ print('Found %s unique tokens.' % len(word_index))
 print('Dimensions of our coded results:', np.shape(one_hot_results)) 
 ```
 
-    sequences type: <class 'list'>
-    one_hot_results type: <class 'numpy.ndarray'>
-    Found 50110 unique tokens.
-    Dimensions of our coded results: (60000, 2000)
-
-
 
 ```python
 # __SOLUTION__ 
@@ -305,25 +298,6 @@ print('Decoded review from Tokenizer:')
 print(decoded_review)
 ```
 
-    Original complaint text:
-    I have already filed several complaints about AES/PHEAA. I was notified by a XXXX XXXX let @ XXXX, who pretended to be from your office, he said he was from CFPB. I found out this morning he is n't from your office, but is actually works at XXXX. 
-    
-    This has wasted weeks of my time. They AES/PHEAA confirmed and admitted ( see attached transcript of XXXX, conversation at XXXX ( XXXX ) with XXXX that proves they verified the loans are not mine ) the student loans they had XXXX, and collected on, and reported negate credit reporting in my name are in fact, not mine. 
-    They conclued their investigation on XXXX admitting they made a mistake and have my name on soneone elses loans. I these XXXX loans total {$10000.00}, original amount. My XXXX loans I got was total {$3500.00}. We proved by providing AES/PHEAA, this with my original promissary notes I located recently, the XXXX of my college provided AES/PHEAA with their original shoeinf amounts of my XXXX loans which show different dates and amounts, the dates and amounts are not even close to matching these loans they have in my name, The original lender, XXXX XXXX Bank notifying AES/PHEAA, they never issued me a student loan, and original Loan Guarantor, XXXX, notifying AES/PHEAA, they never were guarantor of my loans. 
-    
-    XXXX straight forward. But today, this person, XXXX XXXX, told me they know these loans are not mine, and they refuse to remove my name off these XXXX loan 's and correct their mistake, essentially forcing me to pay these loans off, bucause in XXXX they sold the loans to XXXX loans. 
-    
-    This is absurd, first protruding to be this office, and then refusing to correct their mistake. 
-    
-    Please for the love of XXXX will soneone from your office call me at XXXX, today. I am a XXXX vet and they are knowingly discriminating against me. 
-    Pretending to be you.
-    
-    
-    
-    Decoded review from Tokenizer:
-    i have already filed several complaints about aes i was notified by a xxxx xxxx let xxxx who to be from your office he said he was from cfpb i found out this morning he is n't from your office but is actually works at xxxx this has weeks of my time they aes confirmed and admitted see attached of xxxx conversation at xxxx xxxx with xxxx that they verified the loans are not mine the student loans they had xxxx and on and reported credit reporting in my name are in fact not mine they their investigation on xxxx they made a mistake and have my name on loans i these xxxx loans total 10000 00 original amount my xxxx loans i got was total 00 we by providing aes this with my original notes i located recently the xxxx of my college provided aes with their original amounts of my xxxx loans which show different dates and amounts the dates and amounts are not even close to these loans they have in my name the original lender xxxx xxxx bank notifying aes they never issued me a student loan and original loan xxxx notifying aes they never were of my loans xxxx forward but today this person xxxx xxxx told me they know these loans are not mine and they refuse to remove my name off these xxxx loan 's and correct their mistake essentially me to pay these loans off in xxxx they sold the loans to xxxx loans this is first to be this office and then refusing to correct their mistake please for the of xxxx will from your office call me at xxxx today i am a xxxx and they are against me to be you
-
-
 
 ```python
 # __SOLUTION__ 
@@ -389,28 +363,6 @@ print('\n')
 print('One hot labels shape:')
 print(np.shape(product_onehot))
 ```
-
-    Original class labels:
-    ['Bank account or service', 'Checking or savings account', 'Consumer Loan', 'Credit card', 'Credit reporting', 'Mortgage', 'Student loan']
-    
-    
-    New product labels:
-    [6 6 6 ... 4 4 4]
-    
-    
-    One hot labels; 7 binary columns, one for each of the categories.
-    [[0. 0. 0. ... 0. 0. 1.]
-     [0. 0. 0. ... 0. 0. 1.]
-     [0. 0. 0. ... 0. 0. 1.]
-     ...
-     [0. 0. 0. ... 1. 0. 0.]
-     [0. 0. 0. ... 1. 0. 0.]
-     [0. 0. 0. ... 1. 0. 0.]]
-    
-    
-    One hot labels shape:
-    (60000, 7)
-
 
 
 ```python
@@ -485,12 +437,6 @@ print('Test shape:', np.shape(test))
 print('Train shape:', np.shape(train))
 ```
 
-    Test label shape: (1500, 7)
-    Train label shape: (58500, 7)
-    Test shape: (1500, 2000)
-    Train shape: (58500, 2000)
-
-
 
 ```python
 # __SOLUTION__ 
@@ -564,7 +510,7 @@ Now, compile the model! This time, use `'categorical_crossentropy'` as the loss 
 # Compile the model
 model.compile(optimizer='SGD',
               loss='categorical_crossentropy',
-              metrics=['accuracy'])
+              metrics=['acc'])
 ```
 
 ## Training the model
@@ -590,245 +536,245 @@ history = model.fit(train,
 ```
 
     Epoch 1/120
-    58500/58500 [==============================] - 1s 14us/step - loss: 1.8987 - acc: 0.2475
+    229/229 [==============================] - 0s 2ms/step - loss: 1.8628 - acc: 0.2539
     Epoch 2/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 1.6221 - acc: 0.4669
+    229/229 [==============================] - 0s 2ms/step - loss: 1.5305 - acc: 0.5124
     Epoch 3/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 1.2411 - acc: 0.6050
+    229/229 [==============================] - 0s 2ms/step - loss: 1.1460 - acc: 0.6468
     Epoch 4/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.9817 - acc: 0.6743
+    229/229 [==============================] - 0s 2ms/step - loss: 0.9203 - acc: 0.6962
     Epoch 5/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.8398 - acc: 0.7086
+    229/229 [==============================] - 0s 2ms/step - loss: 0.8002 - acc: 0.7222
     Epoch 6/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.7584 - acc: 0.7279
+    229/229 [==============================] - 0s 2ms/step - loss: 0.7302 - acc: 0.7406
     Epoch 7/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.7062 - acc: 0.7425
+    229/229 [==============================] - 0s 2ms/step - loss: 0.6846 - acc: 0.7524
     Epoch 8/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.6700 - acc: 0.7536
+    229/229 [==============================] - 0s 2ms/step - loss: 0.6524 - acc: 0.7617
     Epoch 9/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.6429 - acc: 0.7614
+    229/229 [==============================] - 0s 2ms/step - loss: 0.6276 - acc: 0.7689
     Epoch 10/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.6215 - acc: 0.7696
+    229/229 [==============================] - 0s 2ms/step - loss: 0.6080 - acc: 0.7779
     Epoch 11/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.6038 - acc: 0.7768
+    229/229 [==============================] - 0s 2ms/step - loss: 0.5914 - acc: 0.7832
     Epoch 12/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.5890 - acc: 0.7828
+    229/229 [==============================] - 0s 2ms/step - loss: 0.5776 - acc: 0.7887
     Epoch 13/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.5758 - acc: 0.7884
+    229/229 [==============================] - 0s 2ms/step - loss: 0.5651 - acc: 0.7942
     Epoch 14/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.5642 - acc: 0.7934
+    229/229 [==============================] - 0s 2ms/step - loss: 0.5542 - acc: 0.7977
     Epoch 15/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.5539 - acc: 0.7966
+    229/229 [==============================] - 0s 2ms/step - loss: 0.5445 - acc: 0.8020
     Epoch 16/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.5443 - acc: 0.8012
+    229/229 [==============================] - 0s 2ms/step - loss: 0.5353 - acc: 0.8063
     Epoch 17/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.5361 - acc: 0.8041
+    229/229 [==============================] - 0s 2ms/step - loss: 0.5274 - acc: 0.8084
     Epoch 18/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.5281 - acc: 0.8075
+    229/229 [==============================] - 0s 2ms/step - loss: 0.5197 - acc: 0.8120
     Epoch 19/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.5205 - acc: 0.8110
+    229/229 [==============================] - 0s 2ms/step - loss: 0.5130 - acc: 0.8144
     Epoch 20/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.5137 - acc: 0.8134
+    229/229 [==============================] - 0s 2ms/step - loss: 0.5065 - acc: 0.8175
     Epoch 21/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.5073 - acc: 0.8164
+    229/229 [==============================] - 0s 2ms/step - loss: 0.5005 - acc: 0.8205
     Epoch 22/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.5014 - acc: 0.8185
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4947 - acc: 0.8222
     Epoch 23/120
-    58500/58500 [==============================] - 1s 12us/step - loss: 0.4957 - acc: 0.8212
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4896 - acc: 0.8242
     Epoch 24/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.4905 - acc: 0.8228
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4848 - acc: 0.8262
     Epoch 25/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.4852 - acc: 0.8243
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4801 - acc: 0.8285
     Epoch 26/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.4807 - acc: 0.8259
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4757 - acc: 0.8297
     Epoch 27/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.4763 - acc: 0.8277
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4715 - acc: 0.8317
     Epoch 28/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.4719 - acc: 0.8305
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4677 - acc: 0.8324
     Epoch 29/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.4681 - acc: 0.8309
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4636 - acc: 0.8337
     Epoch 30/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.4642 - acc: 0.8328
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4601 - acc: 0.8359
     Epoch 31/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.4603 - acc: 0.8350
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4565 - acc: 0.8376
     Epoch 32/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.4571 - acc: 0.8366
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4533 - acc: 0.8378
     Epoch 33/120
-    58500/58500 [==============================] - 1s 12us/step - loss: 0.4536 - acc: 0.8373
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4499 - acc: 0.8389
     Epoch 34/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.4503 - acc: 0.8390
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4470 - acc: 0.8411
     Epoch 35/120
-    58500/58500 [==============================] - 1s 12us/step - loss: 0.4470 - acc: 0.8397
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4441 - acc: 0.8421
     Epoch 36/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.4441 - acc: 0.8417
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4413 - acc: 0.8433
     Epoch 37/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.4410 - acc: 0.8423
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4386 - acc: 0.8440
     Epoch 38/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.4386 - acc: 0.8442
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4361 - acc: 0.8450
     Epoch 39/120
-    58500/58500 [==============================] - 1s 12us/step - loss: 0.4357 - acc: 0.8449
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4335 - acc: 0.8456
     Epoch 40/120
-    58500/58500 [==============================] - 1s 13us/step - loss: 0.4331 - acc: 0.8451
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4309 - acc: 0.8466
     Epoch 41/120
-    58500/58500 [==============================] - 1s 12us/step - loss: 0.4306 - acc: 0.8468
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4288 - acc: 0.8476
     Epoch 42/120
-    58500/58500 [==============================] - 1s 12us/step - loss: 0.4279 - acc: 0.8477
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4264 - acc: 0.8491
     Epoch 43/120
-    58500/58500 [==============================] - 1s 12us/step - loss: 0.4257 - acc: 0.8489
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4242 - acc: 0.8493
     Epoch 44/120
-    58500/58500 [==============================] - 1s 12us/step - loss: 0.4232 - acc: 0.8498
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4221 - acc: 0.8506
     Epoch 45/120
-    58500/58500 [==============================] - 1s 12us/step - loss: 0.4210 - acc: 0.8510
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4199 - acc: 0.8509
     Epoch 46/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.4188 - acc: 0.8521
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4181 - acc: 0.8512
     Epoch 47/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.4169 - acc: 0.8519
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4161 - acc: 0.8525
     Epoch 48/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.4145 - acc: 0.8530
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4142 - acc: 0.8541
     Epoch 49/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.4126 - acc: 0.8535
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4122 - acc: 0.8539
     Epoch 50/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.4107 - acc: 0.8542
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4105 - acc: 0.8547
     Epoch 51/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.4085 - acc: 0.8548
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4086 - acc: 0.8551
     Epoch 52/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.4068 - acc: 0.8560
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4072 - acc: 0.8555
     Epoch 53/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.4050 - acc: 0.8566
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4054 - acc: 0.8566
     Epoch 54/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.4031 - acc: 0.8563
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4038 - acc: 0.8571A: 0s - loss: 0.4027 - acc: 0.8
     Epoch 55/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.4015 - acc: 0.8577
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4022 - acc: 0.8569
     Epoch 56/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3996 - acc: 0.8580
+    229/229 [==============================] - 0s 2ms/step - loss: 0.4006 - acc: 0.8585
     Epoch 57/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3981 - acc: 0.8586
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3993 - acc: 0.8592
     Epoch 58/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3963 - acc: 0.8598
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3974 - acc: 0.8592
     Epoch 59/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3947 - acc: 0.8602
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3959 - acc: 0.8597
     Epoch 60/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3933 - acc: 0.8605
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3944 - acc: 0.8603
     Epoch 61/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3916 - acc: 0.8607
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3934 - acc: 0.8605
     Epoch 62/120
-    58500/58500 [==============================] - 1s 12us/step - loss: 0.3901 - acc: 0.8619
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3919 - acc: 0.8620A: 0s - loss: 0.3938 - acc: 0.86
     Epoch 63/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3885 - acc: 0.8622
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3908 - acc: 0.8614
     Epoch 64/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3869 - acc: 0.8624
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3892 - acc: 0.8622
     Epoch 65/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3857 - acc: 0.8632
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3880 - acc: 0.8626
     Epoch 66/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3842 - acc: 0.8634
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3867 - acc: 0.8632
     Epoch 67/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3825 - acc: 0.8644
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3852 - acc: 0.8629
     Epoch 68/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3812 - acc: 0.8642
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3840 - acc: 0.8633
     Epoch 69/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3797 - acc: 0.8658
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3827 - acc: 0.8642
     Epoch 70/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3785 - acc: 0.8658
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3816 - acc: 0.8647
     Epoch 71/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3775 - acc: 0.8665
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3806 - acc: 0.8648
     Epoch 72/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3760 - acc: 0.8667
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3794 - acc: 0.8649
     Epoch 73/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3750 - acc: 0.8672
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3781 - acc: 0.8659
     Epoch 74/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3732 - acc: 0.8673
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3771 - acc: 0.8662
     Epoch 75/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3720 - acc: 0.8684
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3760 - acc: 0.8661
     Epoch 76/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3707 - acc: 0.8680
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3751 - acc: 0.8663
     Epoch 77/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3693 - acc: 0.8688
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3738 - acc: 0.8671
     Epoch 78/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3682 - acc: 0.8691
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3727 - acc: 0.8679
     Epoch 79/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3670 - acc: 0.8696
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3719 - acc: 0.8677
     Epoch 80/120
-    58500/58500 [==============================] - 1s 12us/step - loss: 0.3660 - acc: 0.8704
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3704 - acc: 0.8688
     Epoch 81/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3646 - acc: 0.8707
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3696 - acc: 0.8686
     Epoch 82/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3638 - acc: 0.8705
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3686 - acc: 0.8692
     Epoch 83/120
-    58500/58500 [==============================] - 1s 10us/step - loss: 0.3626 - acc: 0.8712
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3678 - acc: 0.8690
     Epoch 84/120
-    58500/58500 [==============================] - 1s 10us/step - loss: 0.3609 - acc: 0.8722
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3668 - acc: 0.8690
     Epoch 85/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3598 - acc: 0.8721
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3663 - acc: 0.8699
     Epoch 86/120
-    58500/58500 [==============================] - 1s 10us/step - loss: 0.3589 - acc: 0.8724
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3647 - acc: 0.8712
     Epoch 87/120
-    58500/58500 [==============================] - 1s 10us/step - loss: 0.3576 - acc: 0.8723
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3636 - acc: 0.8705
     Epoch 88/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3568 - acc: 0.8722
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3627 - acc: 0.8708
     Epoch 89/120
-    58500/58500 [==============================] - 1s 10us/step - loss: 0.3554 - acc: 0.8740
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3620 - acc: 0.8718
     Epoch 90/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3543 - acc: 0.8742
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3608 - acc: 0.8719
     Epoch 91/120
-    58500/58500 [==============================] - 1s 10us/step - loss: 0.3531 - acc: 0.8750
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3604 - acc: 0.8718
     Epoch 92/120
-    58500/58500 [==============================] - 1s 10us/step - loss: 0.3518 - acc: 0.8754
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3597 - acc: 0.8722
     Epoch 93/120
-    58500/58500 [==============================] - 1s 10us/step - loss: 0.3508 - acc: 0.8757
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3587 - acc: 0.8727
     Epoch 94/120
-    58500/58500 [==============================] - 1s 10us/step - loss: 0.3497 - acc: 0.8767
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3576 - acc: 0.8731
     Epoch 95/120
-    58500/58500 [==============================] - 1s 10us/step - loss: 0.3485 - acc: 0.8770
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3567 - acc: 0.8724
     Epoch 96/120
-    58500/58500 [==============================] - 1s 10us/step - loss: 0.3475 - acc: 0.8770
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3557 - acc: 0.8732
     Epoch 97/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3463 - acc: 0.8775
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3551 - acc: 0.8738
     Epoch 98/120
-    58500/58500 [==============================] - 1s 10us/step - loss: 0.3456 - acc: 0.8777
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3542 - acc: 0.8741
     Epoch 99/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3441 - acc: 0.8782
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3536 - acc: 0.8742
     Epoch 100/120
-    58500/58500 [==============================] - 1s 10us/step - loss: 0.3431 - acc: 0.8788
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3527 - acc: 0.8744
     Epoch 101/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3420 - acc: 0.8794
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3518 - acc: 0.8749
     Epoch 102/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3408 - acc: 0.8797
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3513 - acc: 0.8751
     Epoch 103/120
-    58500/58500 [==============================] - 1s 10us/step - loss: 0.3397 - acc: 0.8795
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3502 - acc: 0.8745
     Epoch 104/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3386 - acc: 0.8808
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3491 - acc: 0.8760
     Epoch 105/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3378 - acc: 0.8801
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3484 - acc: 0.8760
     Epoch 106/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3365 - acc: 0.8808
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3476 - acc: 0.8756
     Epoch 107/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3357 - acc: 0.8821
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3466 - acc: 0.8760
     Epoch 108/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3346 - acc: 0.8819
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3460 - acc: 0.8759
     Epoch 109/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3334 - acc: 0.8832
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3452 - acc: 0.8761
     Epoch 110/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3320 - acc: 0.8834
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3446 - acc: 0.8766
     Epoch 111/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3313 - acc: 0.8838
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3436 - acc: 0.8773
     Epoch 112/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3299 - acc: 0.8838
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3433 - acc: 0.8773
     Epoch 113/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3290 - acc: 0.8841
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3421 - acc: 0.8779
     Epoch 114/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3278 - acc: 0.8849
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3412 - acc: 0.8785
     Epoch 115/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3270 - acc: 0.8858
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3407 - acc: 0.8784
     Epoch 116/120
-    58500/58500 [==============================] - 1s 12us/step - loss: 0.3260 - acc: 0.8859
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3395 - acc: 0.8790
     Epoch 117/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3246 - acc: 0.8864
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3389 - acc: 0.8784
     Epoch 118/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3236 - acc: 0.8869
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3380 - acc: 0.8790
     Epoch 119/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3224 - acc: 0.8870
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3376 - acc: 0.8798
     Epoch 120/120
-    58500/58500 [==============================] - 1s 11us/step - loss: 0.3216 - acc: 0.8877
+    229/229 [==============================] - 0s 2ms/step - loss: 0.3364 - acc: 0.8796
 
 
 Recall that the dictionary `history` has two entries: the loss and the accuracy achieved using the training set.
@@ -838,13 +784,6 @@ Recall that the dictionary `history` has two entries: the loss and the accuracy 
 history_dict = history.history
 history_dict.keys()
 ```
-
-
-
-
-    dict_keys(['loss', 'acc'])
-
-
 
 
 ```python
@@ -907,7 +846,7 @@ acc_values = history_dict['acc']
 plt.plot(epochs, acc_values, 'r', label='Training acc')
 plt.title('Training accuracy')
 plt.xlabel('Epochs')
-plt.ylabel('Loss')
+plt.ylabel('Accuracy')
 plt.legend()
 plt.show()
 ```
@@ -952,13 +891,13 @@ results_train = model.evaluate(train, label_train)
 results_train
 ```
 
-    58500/58500 [==============================] - 1s 18us/step
+    1829/1829 [==============================] - 1s 472us/step - loss: 0.3363 - acc: 0.8801
 
 
 
 
 
-    [0.32606651544519977, 0.8818290598290598]
+    [0.3362959623336792, 0.8800683617591858]
 
 
 
@@ -977,13 +916,13 @@ results_test = model.evaluate(test, label_test)
 results_test
 ```
 
-    1500/1500 [==============================] - 0s 28us/step
+    47/47 [==============================] - 0s 542us/step - loss: 0.2496 - acc: 0.9280
 
 
 
 
 
-    [0.2371321245630582, 0.9326666665077209]
+    [0.2496112734079361, 0.9279999732971191]
 
 
 
