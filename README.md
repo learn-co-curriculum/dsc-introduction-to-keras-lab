@@ -279,7 +279,7 @@ results_test = None
 results_test
 ```
 
-We can see that the training set results are really good, but the test set results lag behind. We'll talk a little more about this in the next lesson, and discuss how we can get better test set results as well!
+We can see that the training set results are really good, and the test set results seem to be even better. In general, this type of result will be rare, as train set results are usually at least a bit better than test set results.
 
 
 ## Additional Resources 
