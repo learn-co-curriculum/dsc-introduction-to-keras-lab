@@ -14,6 +14,8 @@ You will be able to:
 - Evaluate performance of a neural network using Keras 
 
 
+**Keep in Mind:** Keras provide verbose (detailed) outputs that explain how it is using the hardware in your computer to run your neural network. They look similar to the message in the image below. The appearance of these warnings is not an indication that the code is broken. 
+
 <div> <center>
 <table>
     <tbody>
