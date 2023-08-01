@@ -12,18 +12,6 @@ You will be able to:
 - Build a neural network using Keras 
 - Evaluate performance of a neural network using Keras 
 
-**Keep in Mind:** Keras provide verbose (detailed) outputs that explain how it is using the hardware in your computer to run your neural network. They look similar to the message in the image below. The appearance of these warnings is not an indication that the code is broken. 
-
-<div> <center>
-<table>
-    <tbody>
-        <tr>
-            <td><img width="450", img src="https://curriculum-content.s3.amazonaws.com/data-science/images/images/keras-warning.png" alt="This is the alt-text for the image." height="100" /></td>
-        </tr>
-    </tbody>
-</table> </center>
-<div>
-
 ## Required Packages
 
 We'll start by importing all of the required packages and classes.
@@ -291,12 +279,6 @@ results_test
 ```
 
 We can see that the training set results are really good, and the test set results seem to be even better. In general, this type of result will be rare, as train set results are usually at least a bit better than test set results.
-
-
-## Additional Resources 
-
-- https://github.com/susanli2016/Machine-Learning-with-Python/blob/master/Consumer_complaints.ipynb 
-- https://catalog.data.gov/dataset/consumer-complaint-database 
 
 ## Summary 
 
